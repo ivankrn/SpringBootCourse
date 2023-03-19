@@ -1,7 +1,7 @@
 package com.ivankrn.springbootcourse.model;
 
-public class x86CPU extends CPU {
-    public x86CPU(String vendor) {
+public class X86CPU extends CPU {
+    public X86CPU(String vendor) {
         this.vendor = vendor;
     }
 }

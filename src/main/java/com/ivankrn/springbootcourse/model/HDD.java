@@ -6,13 +6,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @RequiredArgsConstructor
+@Getter
+@Setter
 public class HDD extends StorageDevice {
-    @Getter
-    @Setter
     @NonNull
     private int readSpeedInMB;
-    @Getter
-    @Setter
     @NonNull
     private int writeSpeedInMB;
 }

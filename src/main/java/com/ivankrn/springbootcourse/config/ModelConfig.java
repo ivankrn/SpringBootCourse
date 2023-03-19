@@ -9,7 +9,7 @@ public class ModelConfig {
 
     @Bean
     public CPU intelCPU() {
-        return new x86CPU("Intel");
+        return new X86CPU("Intel");
     }
 
     @Bean
