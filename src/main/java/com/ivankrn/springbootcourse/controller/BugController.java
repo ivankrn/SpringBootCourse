@@ -1,15 +1,16 @@
 package com.ivankrn.springbootcourse.controller;
 
+import com.ivankrn.springbootcourse.model.Bug;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-public class CoolController {
+@RequestMapping("/api/bugs")
+public class BugController {
 
     @GetMapping("/echoHeaders")
     public String echoHeaders(@RequestHeader MultiValueMap<String, String> headers) {
@@ -20,12 +21,13 @@ public class CoolController {
         return sb.toString();
     }
 
-    @PostMapping("/chooseForceSide")
-    public ResponseEntity<String> chooseForceSide(@RequestBody String side) {
-        if (!side.equals("light") && !side.equals("dark")) {
-            throw new WrongSideException();
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Bug> getBugById(@PathVariable int id) {
+        if (true) {
+            throw new NotFoundException(); //как будто в репозитории не нашлось бага с таким id
         }
-        return ResponseEntity.ok().body("You chose the right side of Force, well done!");
+        return ResponseEntity.ok().body(new Bug()); // пока что заглушка
     }
 
     @PostMapping("/addId")
@@ -35,9 +37,4 @@ public class CoolController {
         return ResponseEntity.ok().body(jsonObject.toString());
     }
 
-    @ExceptionHandler(WrongSideException.class)
-    @ResponseStatus(HttpStatus.BAD_GATEWAY)
-    public ResponseEntity<String> handleWrongSideException(WrongSideException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("You chose the wrong side of Force, try again!");
-    }
 }
