@@ -1,11 +1,12 @@
 package com.ivankrn.springbootcourse.controller;
 
 import com.ivankrn.springbootcourse.model.Bug;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -31,10 +32,10 @@ public class BugController {
     }
 
     @PostMapping("/addId")
-    public ResponseEntity<String> addIdToJson(@RequestBody String inputJson) throws JSONException {
-        JSONObject jsonObject = new JSONObject(inputJson);
-        jsonObject.put("id", 123);
-        return ResponseEntity.ok().body(jsonObject.toString());
+    public ResponseEntity<Map<String, String>> addIdToJson(@RequestBody Map<String, String> inputJson) {
+        Map<String, String> jsonToModify = new HashMap<>(inputJson);
+        jsonToModify.put("id", "123");
+        return ResponseEntity.ok().body(jsonToModify);
     }
 
 }
