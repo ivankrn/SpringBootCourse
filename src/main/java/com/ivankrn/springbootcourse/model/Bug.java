@@ -7,7 +7,8 @@ import java.time.OffsetDateTime;
 @Data
 public class Bug {
     private int id;
-    private int title;
+    private String title;
+    @SeverityConstraint
     private int severity;
     private OffsetDateTime createdAt;
 }

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +37,12 @@ public class BugController {
         Map<String, String> jsonToModify = new HashMap<>(inputJson);
         jsonToModify.put("id", "123");
         return ResponseEntity.ok().body(jsonToModify);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> saveBug(@RequestBody @Valid Bug bug) {
+        // здесь будто бы сохраняем баг в репозиторий
+        return ResponseEntity.ok("Saved!");
     }
 
 }
