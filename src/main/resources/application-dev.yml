@@ -1,0 +1,4 @@
+appName: dev profile
+ports:
+  - 8080
+  - 8081

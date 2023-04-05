@@ -1,0 +1,4 @@
+appName: prod profile
+ports:
+  - 8080
+  - 80
