@@ -8,10 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "info")
 @Getter
 @Setter
-public class DevConfig {
+public class InfoConfig {
     private String appName;
-    private List<String> ports;
+    private List<Integer> ports;
+    private String launchedOn;
 }

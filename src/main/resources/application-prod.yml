@@ -1,4 +1,6 @@
-appName: prod profile
-ports:
-  - 8080
-  - 80
+info:
+  appName: prod profile
+  ports:
+    - 8080
+    - 80
+  launchedOn: ${OS}

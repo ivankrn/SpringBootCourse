@@ -13,12 +13,13 @@ import javax.annotation.PostConstruct;
 public class TestPrinter {
 
     @Autowired
-    TestConfig testConfig;
+    InfoConfig infoConfig;
 
     @PostConstruct
     public void postConstruct() {
-        log.info("Current name is {}", testConfig.getAppName());
-        log.info("Launched on OS: {}", testConfig.getLaunchedOn());
+        log.info("Current name is {}", infoConfig.getAppName());
+        log.info("Running on ports: {}", infoConfig.getPorts());
+        log.info("Launched on OS: {}", infoConfig.getLaunchedOn());
     }
 
 }

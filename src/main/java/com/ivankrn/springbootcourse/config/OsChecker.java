@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 @Component
-@ConditionalOnProperty(name = "launchedOn", havingValue = "Windows_NT")
+@ConditionalOnProperty(prefix = "info", name = "launchedOn", havingValue = "Windows_NT")
 @Slf4j
 public class OsChecker {
     @PostConstruct
     public void postConstruct() {
-        log.info("OS checked");
+        log.info("OS environment variable checked");
     }
 }

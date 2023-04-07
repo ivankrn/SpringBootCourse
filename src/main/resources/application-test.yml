@@ -1,6 +1,7 @@
-appName: test profile
-ports:
-  - 8080
-  - 8081
-  - 80
-launchedOn: ${OS}
+info:
+  appName: test profile
+  ports:
+    - 8081
+    - 8080
+    - 80
+  launchedOn: ${OS}
