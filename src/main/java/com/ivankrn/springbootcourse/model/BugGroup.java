@@ -19,6 +19,6 @@ public class BugGroup {
     @NotBlank
     @Column(nullable = false)
     private String name;
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Bug> bugs;
 }

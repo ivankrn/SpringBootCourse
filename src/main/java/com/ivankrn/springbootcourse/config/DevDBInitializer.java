@@ -30,7 +30,7 @@ public class DevDBInitializer implements CommandLineRunner {
         loginButtonBug.setGroup(frontendGroup);
         bugService.save(loginButtonBug);
         Bug wrongMenuLocationBug = new Bug();
-        wrongMenuLocationBug.setTitle("Wrong menu button locatin");
+        wrongMenuLocationBug.setTitle("Wrong menu button location");
         wrongMenuLocationBug.setSeverity(3);
         wrongMenuLocationBug.setGroup(frontendGroup);
         bugService.save(wrongMenuLocationBug);
