@@ -1,48 +1,40 @@
 package com.ivankrn.springbootcourse.controller;
 
+import com.ivankrn.springbootcourse.database.BugDto;
 import com.ivankrn.springbootcourse.model.Bug;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
+import com.ivankrn.springbootcourse.service.BugService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 
 @RestController
 @RequestMapping("/api/bugs")
+@RequiredArgsConstructor
 public class BugController {
 
-    @GetMapping("/echoHeaders")
-    public String echoHeaders(@RequestHeader MultiValueMap<String, String> headers) {
-        StringBuilder sb = new StringBuilder();
-        headers.forEach((k, v) -> {
-            sb.append(String.format("Header: %s, values: %s\n", k, v));
-        });
-        return sb.toString();
-    }
+    private final BugService bugService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/{id}")
-    @ResponseBody
-    public ResponseEntity<Bug> getBugById(@PathVariable int id) {
-        if (true) {
-            throw new NotFoundException(); //как будто в репозитории не нашлось бага с таким id
-        }
-        return ResponseEntity.ok().body(new Bug()); // пока что заглушка
-    }
-
-    @PostMapping("/addId")
-    public ResponseEntity<Map<String, String>> addIdToJson(@RequestBody Map<String, String> inputJson) {
-        Map<String, String> jsonToModify = new HashMap<>(inputJson);
-        jsonToModify.put("id", "123");
-        return ResponseEntity.ok().body(jsonToModify);
+    public BugDto getById(@PathVariable long id) {
+        return convertToDto(bugService.findByIdOrElseThrow(id));
     }
 
     @PostMapping
-    public ResponseEntity<String> saveBug(@RequestBody @Valid Bug bug) {
-        // здесь будто бы сохраняем баг в репозиторий
-        return ResponseEntity.ok("Saved!");
+    public void save(@RequestBody @Valid BugDto bugDto) {
+        bugService.save(convertToEntity(bugDto));
     }
 
+    private BugDto convertToDto(Bug bug) {
+        BugDto bugDto = modelMapper.map(bug, BugDto.class);
+        return bugDto;
+    }
+
+    private Bug convertToEntity(BugDto bugDto) {
+        Bug bug = modelMapper.map(bugDto, Bug.class);
+        return bug;
+    }
 }
