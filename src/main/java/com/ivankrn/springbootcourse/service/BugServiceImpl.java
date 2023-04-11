@@ -1,7 +1,9 @@
 package com.ivankrn.springbootcourse.service;
 
 import com.ivankrn.springbootcourse.controller.NotFoundException;
+import com.ivankrn.springbootcourse.database.BugDto;
 import com.ivankrn.springbootcourse.database.BugRepository;
+import com.ivankrn.springbootcourse.database.MapStructMapper;
 import com.ivankrn.springbootcourse.model.Bug;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,14 +13,16 @@ import org.springframework.stereotype.Service;
 public class BugServiceImpl implements BugService {
 
     private final BugRepository bugRepository;
+    private final MapStructMapper mapStructMapper;
 
     @Override
-    public Bug findByIdOrElseThrow(long id) {
-        return bugRepository.findById(id).orElseThrow(() -> new NotFoundException());
+    public BugDto findByIdOrElseThrow(long id) {
+        Bug bug = bugRepository.findById(id).orElseThrow(() -> new NotFoundException());
+        return mapStructMapper.bugToBugDto(bug);
     }
 
     @Override
-    public void save(Bug bug) {
-        bugRepository.save(bug);
+    public void save(BugDto bugDto) {
+        bugRepository.save(mapStructMapper.bugDtoToBug(bugDto));
     }
 }

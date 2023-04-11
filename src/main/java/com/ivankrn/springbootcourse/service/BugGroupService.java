@@ -1,8 +1,8 @@
 package com.ivankrn.springbootcourse.service;
 
-import com.ivankrn.springbootcourse.model.BugGroup;
+import com.ivankrn.springbootcourse.database.BugGroupDto;
 
 public interface BugGroupService {
-    BugGroup findByIdOrElseThrow(long id);
-    void save(BugGroup bugGroup);
+    BugGroupDto findByIdOrElseThrow(long id);
+    void save(BugGroupDto bugGroupDto);
 }
