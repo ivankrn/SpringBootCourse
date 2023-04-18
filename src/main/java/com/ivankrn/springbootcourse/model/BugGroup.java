@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -20,5 +21,10 @@ public class BugGroup {
     @Column(nullable = false)
     private String name;
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Bug> bugs;
+    private Set<Bug> bugs = new HashSet<>();
+
+    public void addBug(Bug bug) {
+        this.bugs.add(bug);
+        bug.setGroup(this);
+    }
 }

@@ -24,7 +24,7 @@ public class BugGroupServiceImpl implements BugGroupService {
     @Override
     public void save(BugGroupDto bugGroupDto) {
         BugGroup bugGroup = mapStructMapper.bugGroupDtoToBugGroup(bugGroupDto);
-        bugGroup.getBugs().forEach(b -> b.setGroup(bugGroup));
+        //bugGroup.getBugs().forEach(b -> b.setGroup(bugGroup));
         bugGroupRepository.save(bugGroup);
     }
 }
