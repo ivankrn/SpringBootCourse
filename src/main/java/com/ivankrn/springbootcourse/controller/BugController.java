@@ -3,9 +3,14 @@ package com.ivankrn.springbootcourse.controller;
 import com.ivankrn.springbootcourse.database.BugDto;
 import com.ivankrn.springbootcourse.service.BugService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -21,8 +26,13 @@ public class BugController {
     }
 
     @PostMapping
-    public void save(@RequestBody @Valid BugDto bugDto) {
+    @RolesAllowed("ADMIN")
+    public ResponseEntity<Map<String, String>> save(@RequestBody @Valid BugDto bugDto, Authentication authentication) {
         bugService.save(bugDto);
+        Map<String, String> response = new HashMap<>();
+        response.put("username", authentication.getName());
+        response.put("role", authentication.getAuthorities().toString());
+        return ResponseEntity.ok().body(response);
     }
 
 }
