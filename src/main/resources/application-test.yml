@@ -1,5 +1,7 @@
+spring:
+  application:
+    name: test profile
 info:
-  appName: test profile
   ports:
     - 8081
     - 8080
