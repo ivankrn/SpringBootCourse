@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: dev profile
+info:
+  ports:
+    - 8080
+    - 8081
+  launchedOn: ${OS}
