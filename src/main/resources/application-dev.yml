@@ -1,5 +1,7 @@
+spring:
+  application:
+    name: dev profile
 info:
-  appName: dev profile
   ports:
     - 8080
     - 8081
