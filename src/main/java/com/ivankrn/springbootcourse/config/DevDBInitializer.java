@@ -5,19 +5,20 @@ import com.ivankrn.springbootcourse.database.BugRepository;
 import com.ivankrn.springbootcourse.model.Bug;
 import com.ivankrn.springbootcourse.model.BugGroup;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
-@Configuration
+import javax.annotation.PostConstruct;
+
+@Component
 @Profile("dev")
 @RequiredArgsConstructor
-public class DevDBInitializer implements CommandLineRunner {
+public class DevDBInitializer {
     private final BugGroupRepository bugGroupRepository;
     private final BugRepository bugRepository;
 
-    @Override
-    public void run(String... args) throws Exception {
+    @PostConstruct
+    private void initDb() {
         BugGroup frontendGroup = new BugGroup();
         frontendGroup.setName("Frontend");
         bugGroupRepository.save(frontendGroup);

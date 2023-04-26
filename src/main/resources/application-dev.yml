@@ -1,6 +1,3 @@
-spring:
-  application:
-    name: dev profile
 info:
   ports:
     - 8080
@@ -8,6 +5,8 @@ info:
   launchedOn: ${OS}
 
 spring:
+  application:
+    name: dev profile
   datasource:
     url: jdbc:h2:mem:devdb
     username: sa
