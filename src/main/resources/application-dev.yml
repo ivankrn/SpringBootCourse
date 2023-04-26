@@ -1,8 +1,21 @@
-spring:
-  application:
-    name: dev profile
 info:
   ports:
     - 8080
     - 8081
   launchedOn: ${OS}
+
+spring:
+  application:
+    name: dev profile
+  datasource:
+    url: jdbc:h2:mem:devdb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
