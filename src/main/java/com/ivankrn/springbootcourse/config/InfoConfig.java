@@ -17,4 +17,5 @@ public class InfoConfig {
     private String appName;
     private List<Integer> ports;
     private String launchedOn;
+    private int apiCallLimit;
 }

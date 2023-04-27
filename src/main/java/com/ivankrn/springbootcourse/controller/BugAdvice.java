@@ -9,20 +9,24 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestControllerAdvice
 public class BugAdvice {
+
+    private static final String message = "Validation error!";
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleNotValid(MethodArgumentNotValidException ex) {
         BindingResult errors = ex.getBindingResult();
-        List<String> validationsErrors = new ArrayList<>();
+        Map<String, String> validationsErrors = new HashMap<>();
         for (FieldError error : errors.getFieldErrors()) {
-            validationsErrors.add(String.format("%s: %s", error.getField(), error.getDefaultMessage()));
+            validationsErrors.put(error.getField(), error.getDefaultMessage());
         }
-        ErrorResponse error = new ErrorResponse(OffsetDateTime.now(), validationsErrors);
+        ErrorResponse error = new ErrorResponse(message, validationsErrors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

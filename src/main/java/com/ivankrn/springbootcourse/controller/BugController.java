@@ -1,5 +1,6 @@
 package com.ivankrn.springbootcourse.controller;
 
+import com.ivankrn.springbootcourse.aspect.Limit;
 import com.ivankrn.springbootcourse.database.BugDto;
 import com.ivankrn.springbootcourse.service.BugService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/bugs")
 @RequiredArgsConstructor
+@Limit
 public class BugController {
 
     private final BugService bugService;
