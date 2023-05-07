@@ -19,12 +19,12 @@ public class LimitingAspect {
 
     @Around("within(@com.ivankrn.springbootcourse.aspect.Limit *)")
     public Object limitCallAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
-        String methodSignature = joinPoint.getSignature().toString();
-        if (!callsCount.containsKey(methodSignature)) {
-            callsCount.put(methodSignature, 0);
+        String methodName = joinPoint.getSignature().getName();
+        if (!callsCount.containsKey(methodName)) {
+            callsCount.put(methodName, 0);
         }
-        if (callsCount.get(methodSignature) < infoConfig.getApiCallLimit()) {
-            callsCount.put(methodSignature, callsCount.get(methodSignature) + 1);
+        if (callsCount.get(methodName) < infoConfig.getApiCallLimit()) {
+            callsCount.put(methodName, callsCount.get(methodName) + 1);
             Object apiResponse = joinPoint.proceed();
             return apiResponse;
         } else {
