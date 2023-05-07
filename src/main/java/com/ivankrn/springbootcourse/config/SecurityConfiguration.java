@@ -21,8 +21,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class SecurityConfiguration {
 
-    private final UserDetailsServiceImpl userDetailsService;
-
     @Bean
     public SecurityFilterChain bugFilterChain(HttpSecurity http) throws Exception {
         http
@@ -48,7 +46,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
         provider.setUserDetailsService(userDetailsService);
