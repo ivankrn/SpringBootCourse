@@ -2,6 +2,7 @@ package com.ivankrn.springbootcourse.controller;
 
 import com.ivankrn.springbootcourse.database.BugDto;
 import com.ivankrn.springbootcourse.service.BugService;
+import com.ivankrn.springbootcourse.service.KafkaProducerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 public class BugController {
 
     private final BugService bugService;
+    private final KafkaProducerService kafkaProducerService;
 
     @GetMapping("/{id}")
     public BugDto getById(@PathVariable long id) {
@@ -23,6 +25,7 @@ public class BugController {
     @PostMapping
     public void save(@RequestBody @Valid BugDto bugDto) {
         bugService.save(bugDto);
+        kafkaProducerService.send(bugDto);
     }
 
 }

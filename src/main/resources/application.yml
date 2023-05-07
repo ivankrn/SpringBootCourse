@@ -3,3 +3,7 @@ spring:
     active: dev
 info:
   launchedOn: default
+com:
+  ivankrn:
+    kafka:
+      bootstrap-servers: localhost:9092
