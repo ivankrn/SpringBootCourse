@@ -1,7 +1,6 @@
 package com.ivankrn.springbootcourse.controller;
 
 import com.ivankrn.springbootcourse.database.BugDto;
-import com.ivankrn.springbootcourse.database.MapStructMapper;
 import com.ivankrn.springbootcourse.database.UserInfoDto;
 import com.ivankrn.springbootcourse.service.BugService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ import javax.validation.Valid;
 public class BugController {
 
     private final BugService bugService;
-    private final MapStructMapper mapStructMapper;
 
     @GetMapping("/{id}")
     public BugDto getById(@PathVariable long id) {
