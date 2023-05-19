@@ -5,15 +5,26 @@ import com.ivankrn.springbootcourse.database.BugDto;
 import com.ivankrn.springbootcourse.database.BugRepository;
 import com.ivankrn.springbootcourse.database.MapStructMapper;
 import com.ivankrn.springbootcourse.model.Bug;
-import lombok.RequiredArgsConstructor;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.stereotype.Service;
 
+import java.util.function.Supplier;
+import java.util.stream.StreamSupport;
+
 @Service
-@RequiredArgsConstructor
 public class BugServiceImpl implements BugService {
 
+    private static final int SEVERITY_LIMIT = 10;
     private final BugRepository bugRepository;
     private final MapStructMapper mapStructMapper;
+
+    public BugServiceImpl(BugRepository bugRepository, MapStructMapper mapStructMapper, MeterRegistry registry) {
+        this.bugRepository = bugRepository;
+        this.mapStructMapper = mapStructMapper;
+        Gauge.builder("bugs.count", getCriticalBugsCount()).tag("group", "critical").register(registry);
+        Gauge.builder("bugs.count", getUncriticalBugsCount()).tag("group", "uncritical").register(registry);
+    }
 
     @Override
     public BugDto findByIdOrElseThrow(long id) {
@@ -24,5 +35,15 @@ public class BugServiceImpl implements BugService {
     @Override
     public void save(BugDto bugDto) {
         bugRepository.save(mapStructMapper.bugDtoToBug(bugDto));
+    }
+
+    private Supplier<Number> getCriticalBugsCount() {
+        return () -> StreamSupport.stream(this.bugRepository.findAll().spliterator(), false)
+                .filter(bug -> bug.getSeverity() >= SEVERITY_LIMIT).count();
+    }
+
+    private Supplier<Number> getUncriticalBugsCount() {
+        return () -> StreamSupport.stream(this.bugRepository.findAll().spliterator(), false)
+                .filter(bug -> bug.getSeverity() < SEVERITY_LIMIT).count();
     }
 }

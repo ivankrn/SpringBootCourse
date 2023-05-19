@@ -3,3 +3,12 @@ spring:
     active: dev
 info:
   launchedOn: default
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics, users
+  metrics:
+    web:
+      server:
+        auto-time-requests: true
