@@ -10,12 +10,10 @@ import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Supplier;
-import java.util.stream.StreamSupport;
 
 @Service
 public class BugServiceImpl implements BugService {
 
-    private static final int SEVERITY_LIMIT = 10;
     private final BugRepository bugRepository;
     private final MapStructMapper mapStructMapper;
 
@@ -38,12 +36,10 @@ public class BugServiceImpl implements BugService {
     }
 
     private Supplier<Number> getCriticalBugsCount() {
-        return () -> StreamSupport.stream(this.bugRepository.findAll().spliterator(), false)
-                .filter(bug -> bug.getSeverity() >= SEVERITY_LIMIT).count();
+        return bugRepository::getCriticalBugsCount;
     }
 
     private Supplier<Number> getUncriticalBugsCount() {
-        return () -> StreamSupport.stream(this.bugRepository.findAll().spliterator(), false)
-                .filter(bug -> bug.getSeverity() < SEVERITY_LIMIT).count();
+        return bugRepository::getUncriticalBugsCount;
     }
 }
