@@ -1,16 +1,16 @@
 package com.ivankrn.springbootcourse.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class KafkaListenerService {
 
-    @Autowired
-    private KafkaProducerService kafkaProducerService;
+    private final KafkaProducerService kafkaProducerService;
 
     @KafkaListener(topics = "bug-response", containerFactory = "bugResponseKafkaListenerContainerFactory")
     public void listen(String message) {

@@ -14,6 +14,7 @@ public class BugServiceImpl implements BugService {
 
     private final BugRepository bugRepository;
     private final MapStructMapper mapStructMapper;
+    private final KafkaProducerService kafkaProducerService;
 
     @Override
     public BugDto findByIdOrElseThrow(long id) {
@@ -24,5 +25,6 @@ public class BugServiceImpl implements BugService {
     @Override
     public void save(BugDto bugDto) {
         bugRepository.save(mapStructMapper.bugDtoToBug(bugDto));
+        kafkaProducerService.send(bugDto);
     }
 }
