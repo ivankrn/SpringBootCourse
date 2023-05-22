@@ -7,13 +7,13 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @Aspect
 public class LimitingAspect {
-    private Map<String, Integer> callsCount = new HashMap<>();
+    private final Map<String, Integer> callsCount = new ConcurrentHashMap<>();
     @Autowired
     private InfoConfig infoConfig;
 
