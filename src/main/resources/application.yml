@@ -3,3 +3,4 @@ spring:
     active: dev
 info:
   launchedOn: default
+  apiCallLimit: 5
