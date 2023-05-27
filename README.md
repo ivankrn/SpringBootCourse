@@ -1,4 +1,5 @@
 # SpringBootCourse
+
 ## Aspects
 
 Репозиторий для курса по Spring Boot (проект – баг-трекер)⠀
