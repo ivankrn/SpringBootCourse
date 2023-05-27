@@ -4,6 +4,15 @@ spring:
 info:
   launchedOn: default
   apiCallLimit: 5
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics, users
+  metrics:
+    web:
+      server:
+        auto-time-requests: true
 com:
   ivankrn:
     kafka:

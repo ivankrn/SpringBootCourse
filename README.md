@@ -1,9 +1,6 @@
 # SpringBootCourse
-## BROCKERS
 
 Репозиторий для курса по Spring Boot (проект – баг-трекер)⠀
-
-Домашка по теме Brockers.
 
 Второй сервис: https://github.com/ivankrn/repeater
 
