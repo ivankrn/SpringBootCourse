@@ -3,6 +3,7 @@ spring:
     active: dev
 info:
   launchedOn: default
+  apiCallLimit: 5
 management:
   endpoints:
     web:
@@ -12,3 +13,7 @@ management:
     web:
       server:
         auto-time-requests: true
+com:
+  ivankrn:
+    kafka:
+      bootstrap-servers: localhost:9092

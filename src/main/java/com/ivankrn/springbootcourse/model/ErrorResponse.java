@@ -1,14 +1,22 @@
 package com.ivankrn.springbootcourse.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 
 @Data
-@AllArgsConstructor
 public class ErrorResponse {
+    private String message;
     private OffsetDateTime date;
-    private List<String> details;
+    private Object data;
+
+    public ErrorResponse(String message) {
+        this.message = message;
+        this.date = OffsetDateTime.now();
+    }
+
+    public ErrorResponse(String message, Object data) {
+        this(message);
+        this.data = data;
+    }
 }
