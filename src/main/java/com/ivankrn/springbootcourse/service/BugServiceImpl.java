@@ -16,6 +16,7 @@ public class BugServiceImpl implements BugService {
 
     private final BugRepository bugRepository;
     private final MapStructMapper mapStructMapper;
+    private final KafkaProducerService kafkaProducerService;
     private final ApplicationEventPublisher publisher;
 
     @Override
@@ -27,6 +28,7 @@ public class BugServiceImpl implements BugService {
     @Override
     public void save(BugDto bugDto) {
         bugRepository.save(mapStructMapper.bugDtoToBug(bugDto));
+        kafkaProducerService.send(bugDto);
         publisher.publishEvent(new BugCreatedEvent(bugDto.getTitle(), bugDto.getSeverity()));
     }
 }
